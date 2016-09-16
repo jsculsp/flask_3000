@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/static/css/pure-min.css">
+    <link rel="stylesheet" href="/static/css/main.css">
+    <link rel="stylesheet" href="/static/alertifyjs/css/alertify.css">
+    <link rel="stylesheet" href="/static/alertifyjs/css/themes/default.css">
+    <script src="/static/js/jQuery.js"></script>
+    <script src="/static/alertifyjs/alertify.js"></script>
+    <script src="/static/js/api.js"></script>
+    <script src="/static/js/weibo.js"></script>
+    <title>三千院的朋友和他朋友的朋友们</title>
+</head>
+<body>
+  <div class="head">
+      <div class="left title">三千院的朋友和他朋友的朋友们</div>
+      <div class="right">
+        <span><a href="/blog">三千院的朋友的博客</a></span>
+        <span><a href="/weibo">微博</a></span>
+        <span><a href="/profile">个人资料</a></span>
+      </div>
+    </div>
+  <div class="background">
+    <div class="height-20"></div>
+    <div class="content clearfix">
+      <div class="box add-box">
+        <!--<form action="/add" method="post" class="out">-->
+            <input id="id-input-weibo" name="weibo" class="wei" placeholder="Weibo"> </input>
+            <br>
+            <button id="id-button-weibo-add" class="pure-button pure-button-primary sub" type="submit">水一发！</button>
+        <!--</form>-->
+      </div>
+      <div class="height-20"></div>
+
+      <div class="box gua-box weibo-container">
+        {% for t in weibos %}
+          <div class="weibo-cell cell item">
+            <img src="{{ t.avatar }}" class="avatar-l">
+            <span class="weibo-font weibo-{{ t.id }}">{{ t.weibo }}</span>
+            <div class="pure-form div-{{ t.id }} div-textarea hide">
+                <textarea id="id-textarea-{{ t.id }}" name="weibo" rows="4" cols="35" >{{ t.weibo }}</textarea>
+                <button class="change-button pure-button weibo-button" data-id="{{ t.id }}">修改</button>
+            </div>
+            <span class="right span-margin">{{ t.created_time }}</span>
+            <span class="right span-margin">by: {{ t.name }}</span>
+            <div class="right span-margin">
+                <button class="weibo-change weibo-button pure-button" data-id="{{ t.id }}">编辑</button>
+                <button class="weibo-delete weibo-button pure-button" data-id="{{ t.id }}">删除</button>
+                <button class="weibo-comment weibo-button pure-button com comment-{{ t.id }}" data-id="{{ t.comments_num }}">评论({{ t.comments_num }})</button>
+            </div>
+            <div class="comment-div hide">
+              <div class="comments-container-{{ t.id }}">
+              {% for c in t.comment %}
+                <div class="cell-inner item">
+                  <img src="{{ c.avatar }}" class="avatar">
+                  <span class="comment">{{ c.comment }}</span>
+                  <span class="time right span-margin">{{ c.created_time }}</span>
+                  <span class="name right span-margin">by:{{ c.name }}</span>
+                </div>
+              {% endfor %}
+              </div>
+              <!--<form action="/comment" method="post" class="comment-form">-->
+                <input type="hidden" name="weibo_id" value="{{ t.id }}">
+                <input name="comment" class="left m m-{{ t.id }}" placeholder="Comment">
+                <button class="weibo-button pure-button comment-button" data-id="{{ t.id }}">发表</button>
+              <!--</form>-->
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+      <div class="height-20"></div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/static/css/pure-min.css">
+    <link rel="stylesheet" href="/static/css/main.css">
+    <title>个人资料</title>
+</head>
+<body>
+  <div class="head">
+    <div class="left title">三千院的朋友和他朋友的朋友们</div>
+    <div class="right">
+      <span><a href="/blog">三千院的朋友的博客</a></span>
+      <span><a href="/weibo">微博</a></span>
+      <span><a href="/profile">个人资料</a></span>
+    </div>
+  </div>
+<div class="background">
+  <div class="content clearfix profile">
+    <div class="box profile-box">
+      <div>
+          用户名： {{ user.username }}
+      </div>
+      <div>
+        <form action="/user/update_password" method="post">
+          密码：
+          <input name="password" value="{{ user.password }}">
+          <button>修改密码</button>
+        </form>
+      </div>
+      <div>
+        <form action="/user/update_avatar" method="post">
+          头像：
+          <input name="avatar" value="{{ user.avatar }}" style="width:400px;">
+          <button>修改头像</button>
+        </form>
+      </div>
+      <div class="description ">
+        提供10张美女动图作为头像， url 分别为 /static/img/1.gif ~ /static/img/10.gif
+        <br>
+        新用户随机获得一张美女动图作为头像^_^
+      </div>
+      <div>
+        头像预览：
+        <div >
+          大<img src="{{ user.avatar }}" class="avatar-l">
+          中<img src="{{ user.avatar }}" class="avatar">
+          小<img src="{{ user.avatar }}" class="avatar-s">
+        </div>
+      </div>
+    </div>
+
+  </div>
+  </div>
+</body>
+</html>
